@@ -7,7 +7,7 @@ import {
   DialogTitle
 } from "@material-ui/core";
 import { connect } from "react-redux";
-
+//created the AddListing Class
 class AddListing extends Component {
   state = {
     open: false,
@@ -28,7 +28,7 @@ class AddListing extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const payload = { ...this.state };
-    payload.id = payload.length + 1;
+    payload.id = this.props.listingTotal + 1;
     delete payload.open;
     console.log("THE LISTING", payload);
     this.props.addListing(payload);
