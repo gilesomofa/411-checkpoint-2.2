@@ -10,39 +10,40 @@ import { connect } from "react-redux";
 
 class AddListing extends Component {
   state = {
-    id: [],
+    open: false,
     name: "",
-    hours: "",
-    address: ""
+    description: "",
+    address: "",
+    hours: ""
   };
 
   toggleDialog = () => this.setState({ open: !this.state.open });
 
-  handleTextChange = e => {
+  handleTextChange = (e) => {
     const newState = { ...this.state };
     newState[e.target.id] = e.target.value;
     this.setState(newState);
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const payload = { ...this.state };
-    payload.id = this.props.listingTotal + 1;
+    payload.id = payload.length + 1;
     delete payload.open;
     console.log("THE LISTING", payload);
-    this.props.addCar(payload);
+    this.props.addListing(payload);
     this.setState({ open: false });
-    // add this.props.addCar function here
-    // also add this.setState to close the dialog
+    
   };
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.open !== this.state.open) {
       this.setState({
-        id: "",
+        
         name: "",
+        description: "",
         address: "",
-        description: ""
+        hours: ""
       });
     }
   };
@@ -51,7 +52,7 @@ class AddListing extends Component {
     return (
       <Fragment>
         <div style={{ textAlign: "center" }}>
-          <h1>Add Car:</h1>
+          <h1>Add Listing:</h1>
           <Button
             variant="contained"
             className="add-listing"
@@ -62,7 +63,7 @@ class AddListing extends Component {
         </div>
         <div>
           <Dialog open={this.state.open} onClose={this.toggleDialog}>
-            <DialogTitle>Add New Car</DialogTitle>
+            <DialogTitle>Add New Listing</DialogTitle>
             <DialogContent>
               <form
                 onSubmit={this.handleSubmit}
@@ -72,13 +73,6 @@ class AddListing extends Component {
                   width: "350px"
                 }}
               >
-                <TextField
-                  id="id"
-                  placeholder="id"
-                  value={this.state.id}
-                  onChange={this.handleTextChange}
-                  required
-                />
                 <TextField
                   id="name"
                   placeholder="name"
@@ -97,6 +91,13 @@ class AddListing extends Component {
                   id="address"
                   placeholder="address"
                   value={this.state.address}
+                  onChange={this.handleTextChange}
+                  required
+                />
+                <TextField
+                  id="hours"
+                  placeholder="hours"
+                  value={this.state.hours}
                   onChange={this.handleTextChange}
                   required
                 />

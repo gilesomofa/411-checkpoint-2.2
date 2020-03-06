@@ -15,9 +15,9 @@ const listing = (state = [], action) => {
 
     case "DELETE_LISTING":
       const newState = [...state];
-      const businessToDelete = newState.find(objects => objects.id === action.value);
-      const businessToDeleteIndex = newState.indexOf(businessToDelete);
-      newState.splice(businessToDeleteIndex, 1);
+      // const businessToDelete = newState.find(objects => objects.id === action.value);
+      // const businessToDeleteIndex = newState.indexOf(businessToDelete);
+      newState.splice(action.value, 1);
       return newState;
 
     default:
