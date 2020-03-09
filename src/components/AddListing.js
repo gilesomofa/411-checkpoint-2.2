@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 class AddListing extends Component {
   state = {
     open: false,
+    id: "",
     name: "",
     description: "",
     address: "",
@@ -19,13 +20,13 @@ class AddListing extends Component {
 
   toggleDialog = () => this.setState({ open: !this.state.open });
 
-  handleTextChange = (e) => {
+  handleTextChange = e => {
     const newState = { ...this.state };
     newState[e.target.id] = e.target.value;
     this.setState(newState);
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const payload = { ...this.state };
     payload.id = this.props.listingTotal + 1;
@@ -33,13 +34,12 @@ class AddListing extends Component {
     console.log("THE LISTING", payload);
     this.props.addListing(payload);
     this.setState({ open: false });
-    
   };
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.open !== this.state.open) {
       this.setState({
-        
+        id: "",
         name: "",
         description: "",
         address: "",

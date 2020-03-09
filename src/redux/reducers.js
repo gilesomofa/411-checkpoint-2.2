@@ -6,12 +6,12 @@ import { combineReducers } from "redux";
 
 const user = (state = null) => state;
 
-// add switch statements in here
-
 const listing = (state = [], action) => {
   switch (action.type) {
     case "ADD_LISTING":
-      return [...state, action.value];
+      const newListState = [...state];
+      newListState.push(action.value);
+      return newListState;
 
     case "DELETE_LISTING":
       const newState = [...state];
